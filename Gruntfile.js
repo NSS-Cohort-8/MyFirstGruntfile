@@ -144,19 +144,17 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', []);
-  grunt.registerTask('build', [
+  grunt.registerTask('build', ['setup', 'combineJs']);
+  grunt.registerTask('serve', ['setup', 'connect', 'watch']);
+  grunt.registerTask('setup', [
     'clean',
     'copy',
     'jade',
     'sass',
     'autoprefixer',
-    'wiredep',
-    'combineJs'
+    'wiredep'
   ]);
-  grunt.registerTask('serve', ['build', 'connect', 'watch']);
   grunt.registerTask('combineJs', [
-    'clean:temp',
-    'wiredep',
     'useminPrepare',
     'concat:generated',
     'uglify:generated',
