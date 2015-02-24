@@ -4,6 +4,16 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
+    autoprefixer: {
+      options: {
+        browsers: ['> 1% in US', 'last 2 versions']
+      },
+
+      build: {
+        src: 'public/css/main.css'
+      }
+    },
+
     clean: {
       temp: ['.tmp'],
       dist: ['public']
@@ -106,7 +116,7 @@ module.exports = function (grunt) {
 
       sass: {
         files: ['app/styles/**/*.{scss,sass}'],
-        tasks: ['sass']
+        tasks: ['sass', 'autoprefixer']
       }
     },
 
@@ -122,7 +132,8 @@ module.exports = function (grunt) {
     'clean',
     'copy',
     'jade',
-    'sass'
+    'sass',
+    'autoprefixer'
   ]);
   grunt.registerTask('build', ['setup', 'combinejs']);
   grunt.registerTask('serve', ['setup', 'wiredep', 'watch']);
