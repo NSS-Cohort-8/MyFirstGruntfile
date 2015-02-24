@@ -58,6 +58,8 @@ module.exports = function (grunt) {
 
       server: {
         options: {
+          livereload: true,
+
           middleware: function (connect) {
             return [
               connect.static('public'),
@@ -106,6 +108,20 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
+
+      livereload: {
+        options: {
+          livereload: true
+        },
+
+        files: [
+          'public/**/*.html',
+          'public/css/**/*.css',
+          'public/js/**/*.js',
+          'app/scripts/**/*.js'
+        ]
+      },
+
       other: {
         files: ['app/**', '!app/**/*.jade', '!app/**/*.{sass,scss}'],
         tasks: ['copy']
