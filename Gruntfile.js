@@ -107,4 +107,10 @@ module.exports = function (grunt) {
   grunt.registerTask('default', []);
   grunt.registerTask('build', ['clean', 'copy', 'jade', 'sass', 'autoprefixer', 'wiredep']);
   grunt.registerTask('serve', ['build', 'connect', 'watch']);
+  grunt.registerTask('combineJs', [
+    'wiredep',
+    'useminPrepare',
+    'concat:generated',
+    'uglify:generated'
+  ]);
 };
