@@ -89,5 +89,5 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', []);
   grunt.registerTask('build', ['clean', 'copy', 'jade', 'sass', 'autoprefixer', 'wiredep']);
-  grunt.registerTask('serve', ['build', 'watch']);
+  grunt.registerTask('serve', ['build', 'connect', 'watch']);
 };
