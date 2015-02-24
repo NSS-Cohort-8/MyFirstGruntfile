@@ -89,6 +89,11 @@ module.exports = function (grunt) {
     },
 
     watch: {
+      bower: {
+        files: ['bower.json'],
+        tasks: ['wiredep']
+      },
+
       other: {
         files: ['app/**', '!app/**/*.jade', '!app/styles/**/*.{sass,scss}'],
         tasks: ['copy']
@@ -106,13 +111,6 @@ module.exports = function (grunt) {
     },
 
     wiredep: {
-      dev: {
-        src: [
-          'app/**/*.html',
-          'app/**/*.jade'
-        ]
-      },
-
       build: {
         src: ['public/**/*.html']
       }
@@ -120,14 +118,14 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', []);
-  grunt.registerTask('build', [
+  grunt.registerTask('setup', [
     'clean',
     'copy',
     'jade',
-    'sass',
-    'combinejs'
+    'sass'
   ]);
-  grunt.registerTask('serve', ['build', 'watch']);
+  grunt.registerTask('build', ['setup', 'combinejs']);
+  grunt.registerTask('serve', ['setup', 'wiredep', 'watch']);
   grunt.registerTask('combinejs', [
     'clean:temp',
     'wiredep:build',
