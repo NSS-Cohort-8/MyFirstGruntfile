@@ -15,8 +15,14 @@
     <div class="container">
       <h1>My Site Title</h1>
     </div>
-    <!-- bower:js -->
-    <!-- endbower -->
-    <script src="js/main.js"></script>
+
+    <!-- build:js public/vendor.js -->
+      <!-- bower:js -->
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js publc/main.js -->
+      <script src="/scripts/common.js"></script>
+      <script src="/scripts/contact.js"></script>
+    <!-- endbuild -->
   </body>
 </html>
