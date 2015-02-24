@@ -53,6 +53,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', []);
-  grunt.registerTask('build', ['clean', 'copy', 'jade', 'sass']);
+  grunt.registerTask('build', ['clean', 'copy', 'jade', 'sass', 'autoprefixer']);
   grunt.registerTask('serve', ['build', 'watch']);
 };
