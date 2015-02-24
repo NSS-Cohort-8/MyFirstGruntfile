@@ -26,9 +26,24 @@ module.exports = function (grunt) {
           'public/css/main.css': 'app/styles/main.scss'
         }
       }
-    }
+    },
+    watch: {
+      other: {
+        files: ['app/**', '!app/**/*.jade', '!app/styles/**/*.{sass,scss}'],
+        tasks: ['copy']
+      },
+      jade: {
+        files: ['app/**/*.jade'],
+        tasks: ['jade']
+      },
+      sass: {
+        files: ['app/styles/**/*.{scss,sass}'],
+        tasks: ['sass']
+      }
+    },
   });
 
   grunt.registerTask('default', []);
   grunt.registerTask('build', ['clean', 'copy', 'jade', 'sass']);
+  grunt.registerTask('serve', ['build', 'watch'])
 };
