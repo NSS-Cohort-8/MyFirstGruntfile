@@ -4,7 +4,23 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
-    clean: ['public'],
+    clean: {
+      temp: ['.tmp'],
+      dist: ['public']
+    },
+
+    concat: {
+      iife: {
+        options: {
+          banner: ';(function(){',
+          footer: '}());'
+        },
+
+        src: ['public/scripts/main.min.js'],
+
+        dest: 'public/scripts/main.min.js'
+      }
+    },
 
     copy: {
       main: {
@@ -15,7 +31,8 @@ module.exports = function (grunt) {
             src:    [
               '**',
               '!**/*.jade',
-              '!**/*.{sass,scss}'
+              '!**/*.{sass,scss}',
+              '!**/*.js'
             ],
             dest:   'public/',
             filter: 'isFile'
@@ -26,6 +43,10 @@ module.exports = function (grunt) {
 
     jade: {
       compile: {
+        options: {
+          pretty: true
+        },
+
         files: [{
           expand: true,
           cwd:    'app/',
@@ -36,6 +57,7 @@ module.exports = function (grunt) {
           dest:   'public/',
           ext:    '.html'
         }]
+
       }
     },
 
@@ -51,16 +73,50 @@ module.exports = function (grunt) {
       }
     },
 
+    usemin: {
+        html: ['public/**/*.html']
+
+    },
+
+    useminPrepare: {
+      html: ['public/index.html'],
+
+      options: {
+        dest: 'public',
+        root: 'app'
+      }
+    },
+
     wiredep: {
-      task: {
+      dev: {
         src: [
           'app/**/*.html',
           'app/**/*.jade'
         ]
+      },
+
+      build: {
+        src: ['public/**/*.html']
       }
     }
   });
 
   grunt.registerTask('default', []);
-  grunt.registerTask('build', ['clean', 'copy', 'jade', 'sass']);
+  grunt.registerTask('build', [
+    'clean',
+    'copy',
+    'jade',
+    'sass',
+    'combinejs'
+  ]);
+  grunt.registerTask('combinejs', [
+    'clean:temp',
+    'wiredep:build',
+    'useminPrepare',
+    'concat:generated',
+    'uglify:generated',
+    'usemin',
+    'concat:iife',
+    'clean:temp'
+  ]);
 };
