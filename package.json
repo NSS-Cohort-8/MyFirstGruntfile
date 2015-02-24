@@ -24,6 +24,7 @@
     "grunt-contrib-jade": "^0.14.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-sass": "^0.18.0",
+    "grunt-wiredep": "^2.0.0",
     "load-grunt-tasks": "^3.1.0"
   }
 }
