@@ -49,6 +49,15 @@ module.exports = function (grunt) {
           'public/css/main.css': 'app/styles/main.scss'
         }
       }
+    },
+
+    wiredep: {
+      task: {
+        src: [
+          'app/**/*.html',
+          'app/**/*.jade'
+        ]
+      }
     }
   });
 
