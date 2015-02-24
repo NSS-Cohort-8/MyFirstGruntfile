@@ -32,6 +32,29 @@ module.exports = function (grunt) {
       }
     },
 
+    connect: {
+      options: {
+        port: 9000,
+        open: true,
+        useAvailablePort: true,
+        hostname: 'localhost'
+      },
+
+      server: {
+        options: {
+          livereload: true,
+
+          middleware: function (connect) {
+            return [
+              connect.static('public'),
+              connect().use('/scripts', connect.static('./app/scripts')),
+              connect().use('/bower_components', connect.static('./bower_components'))
+            ];
+          }
+        }
+      },
+    },
+
     copy: {
       main: {
         files: [
@@ -104,6 +127,19 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
 
+      livereload: {
+        options: {
+            livereload: true
+        },
+
+        files: [
+          'public/**/*.html',
+          'public/css/**/*.css',
+          'public/js/**/*.js',
+          'app/scripts/**/*.js'
+        ]
+      },
+
       other: {
         files: [
           'app/**',
@@ -141,7 +177,7 @@ module.exports = function (grunt) {
     'autoprefixer'
   ]);
   grunt.registerTask('build', ['setup', 'combinejs']);
-  grunt.registerTask('serve', ['setup', 'wiredep', 'watch']);
+  grunt.registerTask('serve', ['setup', 'wiredep', 'connect', 'watch']);
   grunt.registerTask('combinejs', [
     'clean:temp',
     'wiredep:build',
