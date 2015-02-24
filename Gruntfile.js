@@ -26,9 +26,9 @@ module.exports = function (grunt) {
           footer: '}());'
         },
 
-        src: ['public/scripts/main.min.js'],
+        src: ['public/js/main.min.js'],
 
-        dest: 'public/scripts/main.min.js'
+        dest: 'public/js/main.min.js'
       }
     },
 
@@ -105,7 +105,12 @@ module.exports = function (grunt) {
       },
 
       other: {
-        files: ['app/**', '!app/**/*.jade', '!app/styles/**/*.{sass,scss}'],
+        files: [
+          'app/**',
+          '!app/**/*.jade',
+          '!app/styles/**/*.{sass,scss}',
+          '!app/scripts/**'
+        ],
         tasks: ['copy']
       },
 
